@@ -45,6 +45,19 @@ The menu displays:
 - **About Warning Lights** menu item — enabled; opens the standard macOS About panel (`NSApplication.orderFrontStandardAboutPanel`) showing app name, version, and copyright from Info.plist
 - **Quit** menu item to terminate the app
 
+### Notifications
+
+The app posts a local `UserNotification` when the overall warning state transitions:
+
+- **OK → Warning**: Notification title "Warning Lights" with body describing which metric(s) triggered the warning (e.g., "Memory pressure is high", "Disk is nearly full", "CPU is overloaded").
+- **Warning → OK**: Notification title "Warning Lights" with body "System is healthy again."
+
+Notification behavior:
+- Uses `UNUserNotificationCenter`. The app requests authorization at first launch (alert + sound).
+- If the user denies notification permission, the app continues operating silently (icon-only mode); no error is shown.
+- Notifications are not posted on initial launch, only on state transitions after the first poll.
+- At most one notification is posted per transition; rapid oscillation does not spam notifications.
+
 ### No Window
 
 The application has no main window. It is a pure menu bar extra (`LSUIElement = YES` in Info.plist). It does not appear in the Dock or in the Command-Tab app switcher.
@@ -129,7 +142,7 @@ The app is intended to be added to macOS Login Items (System Settings → Genera
 ## Out of Scope
 
 - iOS, iPadOS, watchOS, or other platforms
-- Notifications (push or local) — icon change is the only alert mechanism
+- Push notifications
 - User-configurable thresholds
 - Historical logging or charts
 - Network monitoring

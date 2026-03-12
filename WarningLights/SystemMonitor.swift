@@ -1,5 +1,6 @@
 import Foundation
 import AppKit
+import UserNotifications
 
 /// Actor that coordinates all system monitoring and publishes `SystemStatus` updates.
 @MainActor
@@ -20,10 +21,14 @@ final class SystemMonitor {
     private var wakeObserver: NSObjectProtocol?
     private var powerOffObserver: NSObjectProtocol?
     private var terminateObserver: NSObjectProtocol?
+    private var hasHadFirstPoll: Bool = false
+    private var previousHasWarning: Bool = false
 
     // MARK: - Lifecycle
 
     func start() {
+        requestNotificationAuthorization()
+
         // Memory pressure is event-driven; set up callback on main queue.
         memoryMonitor.onChange = { [weak self] in
             self?.publishStatus()
@@ -80,11 +85,71 @@ final class SystemMonitor {
     }
 
     private func publishStatus() {
-        status = SystemStatus(
+        let oldHasWarning = previousHasWarning
+        let newStatus = SystemStatus(
             memory: memoryMonitor.stats,
             disk: diskMonitor.stats,
             cpu: cpuMonitor.stats
         )
+        status = newStatus
+        previousHasWarning = newStatus.hasWarning
+
+        guard hasHadFirstPoll else {
+            hasHadFirstPoll = true
+            return
+        }
+
+        if !oldHasWarning && newStatus.hasWarning {
+            postWarningNotification(status: newStatus)
+        } else if oldHasWarning && !newStatus.hasWarning {
+            postRecoveryNotification()
+        }
+    }
+
+    // MARK: - User Notifications
+
+    private func requestNotificationAuthorization() {
+        Task {
+            let center = UNUserNotificationCenter.current()
+            _ = try? await center.requestAuthorization(options: [.alert, .sound])
+            // Permission denied or granted — app continues silently either way.
+        }
+    }
+
+    private func postWarningNotification(status: SystemStatus) {
+        var reasons: [String] = []
+        if status.memory.pressureLevel.isWarning {
+            reasons.append("Memory pressure is high.")
+        }
+        if status.disk.isWarning {
+            reasons.append("Disk is nearly full.")
+        }
+        if status.cpu.isSustainedOverload {
+            reasons.append("CPU is overloaded.")
+        }
+        let body = reasons.joined(separator: " ")
+        postNotification(title: "Warning Lights", body: body)
+    }
+
+    private func postRecoveryNotification() {
+        postNotification(title: "Warning Lights", body: "System is healthy again.")
+    }
+
+    private func postNotification(title: String, body: String) {
+        Task {
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.body = body
+            content.sound = .default
+            let request = UNNotificationRequest(
+                identifier: UUID().uuidString,
+                content: content,
+                trigger: nil
+            )
+            let center = UNUserNotificationCenter.current()
+            try? await center.add(request)
+            // Delivery failures are ignored; the app continues silently.
+        }
     }
 
     // MARK: - System Notifications

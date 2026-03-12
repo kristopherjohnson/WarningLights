@@ -21,6 +21,10 @@
 - [x] 3.3 Build menu content using SwiftUI views: one disabled text item per metric showing latest measurement, Divider, About item (app name + version), Quit button [depends: 2.4, 3.1]
 - [x] 3.4 Wire `SystemMonitor` updates to `MenuBarExtra` via `@Observable` or `@ObservableObject` [depends: 2.5, 3.2, 3.3]
 
+## Phase 3.5: Notifications [agent: swift-expert]
+
+- [x] 3.5 Implement state-transition notifications: request `UNUserNotificationCenter` authorization at launch; track previous `hasWarning` value in `SystemMonitor`; post a `UNMutableNotificationContent` notification when `hasWarning` flips; skip notification on initial poll; handle denied permission gracefully [depends: 3.4]
+
 ## Phase 4: Login Item & Lifecycle [agent: swift-expert]
 
 - [x] 4.1 Implement single-instance enforcement: at launch, check if another instance is already running (e.g., via `NSRunningApplication` or a named `NSDistributedNotificationCenter` ping); if so, quit the new instance silently [depends: 1.3]

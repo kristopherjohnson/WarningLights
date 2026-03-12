@@ -19,4 +19,5 @@
 2026-03-12 15:45 | SPECIFICATION.md, TEST_PLAN.md | About menu item is enabled and opens NSApplication.orderFrontStandardAboutPanel (not a disabled label)
 2026-03-12 15:45 | SPECIFICATION.md | Icon uses .monochrome symbol rendering mode (.template does not exist on SymbolRenderingMode in the macOS 26 SDK)
 2026-03-12 16:00 | — | Project licensed under CC0 1.0 Universal (public domain dedication)
+2026-03-12 16:15 | SPECIFICATION.md, IMPLEMENTATION_PLAN.md, TEST_PLAN.md | Add local UNUserNotification on warning state transitions (OK→Warning and Warning→OK); permission denial handled gracefully; no notification on initial poll; removed "local notifications" from Out of Scope
 <!-- LOG_END -->

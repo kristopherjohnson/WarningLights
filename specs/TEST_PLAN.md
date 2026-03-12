@@ -36,6 +36,15 @@
 - Multiple warnings → general warning symbol (not metric-specific)
 - Single metric warning → appropriate metric-specific symbol
 
+### Notification Logic
+- No notification posted when `hasWarning` stays `false`
+- No notification posted when `hasWarning` stays `true`
+- Notification posted when `hasWarning` transitions `false → true`
+- Notification posted when `hasWarning` transitions `true → false`
+- No notification posted on the initial status update (first poll)
+- Warning notification body names the triggering metric(s)
+- Recovery notification body is "System is healthy again"
+
 ### Menu Construction
 - Menu contains exactly 3 metric items + 1 separator + 1 About item + 1 Quit item
 - All metric items are disabled (not selectable)
@@ -88,6 +97,13 @@
 - [ ] Icon renders correctly in dark mode (light menu bar text)
 - [ ] Icon renders correctly on colored menu bar backgrounds
 
+### Notifications
+- [ ] On first launch, system prompts for notification permission
+- [ ] If permission granted: when a metric enters warning state, a notification appears with an appropriate body message
+- [ ] If permission granted: when all metrics return to normal, a "System is healthy again" notification appears
+- [ ] No notification is posted at initial launch (only on transitions after first poll)
+- [ ] If permission denied: app continues working silently; no error shown
+
 ### Login Item & Lifecycle
 - [ ] Add app to Login Items (System Settings → General → Login Items); log out and back in → app starts silently, no UI shown, menu bar icon appears
 - [ ] App not visible in Dock after login-item launch
@@ -103,6 +119,7 @@
 - App is quit and relaunched repeatedly
 - System sleep/wake: monitoring resumes correctly after wake
 - App launched at login before user-space is fully initialized: metric collection must handle transient errors gracefully
+- Notification permission denied: app must not crash or show errors; icon still updates normally
 
 ## Performance Tests
 
