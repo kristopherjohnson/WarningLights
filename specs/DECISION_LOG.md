@@ -18,4 +18,5 @@
 2026-03-11 | IMPLEMENTATION_PLAN.md | Memory monitoring is event-driven (dispatch source) + 60s timer for display refresh; CPU monitoring is poll-based with CPUUsageSampler struct and ring buffer
 2026-03-12 15:45 | SPECIFICATION.md, TEST_PLAN.md | About menu item is enabled and opens NSApplication.orderFrontStandardAboutPanel (not a disabled label)
 2026-03-12 15:45 | SPECIFICATION.md | Icon uses .monochrome symbol rendering mode (.template does not exist on SymbolRenderingMode in the macOS 26 SDK)
+2026-03-12 16:00 | — | Project licensed under CC0 1.0 Universal (public domain dedication)
 <!-- LOG_END -->

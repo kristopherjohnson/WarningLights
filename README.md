@@ -76,4 +76,4 @@ xcodebuild -project WarningLights.xcodeproj -scheme WarningLights test
 
 ## License
 
-Copyright Kris Johnson. All rights reserved.
+This project is dedicated to the public domain under the [CC0 1.0 Universal](LICENSE) license.
