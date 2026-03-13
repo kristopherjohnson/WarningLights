@@ -22,22 +22,13 @@ open WarningLights.xcodeproj
 Or build from the command line:
 
 ```sh
-xcodebuild -project WarningLights.xcodeproj -scheme WarningLights -configuration Release build
-```
-
-The built app bundle lands in the Xcode derived data directory. To place it somewhere specific:
-
-```sh
-xcodebuild -project WarningLights.xcodeproj -scheme WarningLights -configuration Release \
-    CONFIGURATION_BUILD_DIR="$PWD/build" build
+make build
 ```
 
 ## Run
 
-After building, launch the app:
-
 ```sh
-open build/WarningLights.app
+make run
 ```
 
 Or run directly from Xcode with **Product > Run** (Cmd+R).
@@ -46,10 +37,16 @@ The menu bar icon appears immediately. Click it to see memory, disk, and CPU sta
 
 ## Install
 
-Copy the built app to `/Applications`:
+```sh
+make install
+```
+
+This builds the app and copies it to `/Applications`.
+
+To uninstall:
 
 ```sh
-cp -R build/WarningLights.app /Applications/
+make uninstall
 ```
 
 ### Launch at Login
@@ -63,7 +60,7 @@ To start Warning Lights automatically when you log in:
 ## Tests
 
 ```sh
-xcodebuild -project WarningLights.xcodeproj -scheme WarningLights test
+make test
 ```
 
 ## Monitored Metrics

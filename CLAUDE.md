@@ -5,14 +5,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Build & Test
 
 ```sh
-# Build (command line)
-xcodebuild -project WarningLights.xcodeproj -scheme WarningLights -configuration Debug build
-
-# Build release
-xcodebuild -project WarningLights.xcodeproj -scheme WarningLights -configuration Release build
-
-# Run all tests
-xcodebuild -project WarningLights.xcodeproj -scheme WarningLights test
+make help       # Show all available targets
+make build      # Build Release into build/
+make run        # Build and launch
+make test       # Run all unit tests
+make install    # Build and copy to /Applications
+make uninstall  # Kill running instances and remove from /Applications
+make kill       # Kill any running instances
+make clean      # Delete build artifacts
 
 # Run a single test class
 xcodebuild -project WarningLights.xcodeproj -scheme WarningLights \

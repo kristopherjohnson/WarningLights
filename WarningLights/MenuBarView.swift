@@ -22,6 +22,7 @@ struct MenuBarView: View {
 
         // About item
         Button("About Warning Lights") {
+            NSApplication.shared.activate()
             NSApplication.shared.orderFrontStandardAboutPanel()
         }
 

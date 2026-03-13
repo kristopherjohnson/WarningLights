@@ -6,7 +6,7 @@
 
 ## Research Needed
 
-- Verify `FileManager.default.volumeAvailableCapacityForImportantUsage` vs `statvfs` for disk monitoring reliability on macOS 26
+(none — implementation uses `FileManager.default.volumeAvailableCapacityForImportantUsage` with a comment noting it provides accurate purgeable accounting)
 
 ## Decisions Pending
 

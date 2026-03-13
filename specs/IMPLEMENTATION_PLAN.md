@@ -41,9 +41,9 @@
 
 ## Phase 6: Testing & Validation [agent: swift-expert]
 
-- [ ] 6.1 Write unit tests for `MemoryMonitor`, `DiskMonitor`, `CPUMonitor` with mock data [parallel]
-- [ ] 6.2 Write unit tests for `SystemStatus` warning flag logic [parallel]
-- [ ] 6.3 Write unit tests for icon selection logic [parallel]
+- [x] 6.1 Write unit tests for `MemoryMonitor`, `DiskMonitor`, `CPUMonitor` with mock data [parallel]
+- [x] 6.2 Write unit tests for `SystemStatus` warning flag logic [parallel]
+- [x] 6.3 Write unit tests for icon selection logic [parallel]
 - [ ] 6.4 Manual test: simulate high memory pressure and verify icon changes [depends: 6.1, 6.2, 6.3]
 - [ ] 6.5 Manual test: fill disk to > 90% and verify icon changes [depends: 6.4]
 - [ ] 6.6 Manual test: add app to Login Items; log out and back in; verify app starts silently and icon appears [depends: 5.4]

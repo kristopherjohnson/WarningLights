@@ -20,4 +20,7 @@
 2026-03-12 15:45 | SPECIFICATION.md | Icon uses .monochrome symbol rendering mode (.template does not exist on SymbolRenderingMode in the macOS 26 SDK)
 2026-03-12 16:00 | — | Project licensed under CC0 1.0 Universal (public domain dedication)
 2026-03-12 16:15 | SPECIFICATION.md, IMPLEMENTATION_PLAN.md, TEST_PLAN.md | Add local UNUserNotification on warning state transitions (OK→Warning and Warning→OK); permission denial handled gracefully; no notification on initial poll; removed "local notifications" from Out of Scope
+2026-03-13 00:36 | SPECIFICATION.md | About panel requires NSApplication.activate() before orderFrontStandardAboutPanel to bring it to foreground in LSUIElement apps
+2026-03-13 00:36 | IMPLEMENTATION_PLAN.md | Marked 6.1–6.3 complete — 38 unit tests implemented across CPUMonitorTests, MonitorTests, SystemStatusTests
+2026-03-13 00:36 | OPEN_ISSUES.md | Resolved disk API research: implementation uses volumeAvailableCapacityForImportantUsage
 <!-- LOG_END -->

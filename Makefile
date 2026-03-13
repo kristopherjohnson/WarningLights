@@ -1,5 +1,6 @@
-# The app wil be built here
+# The app will be built here
 APP_PATH=build/WarningLights.app
+APP_NAME=WarningLights
 
 PROJECT=WarningLights.xcodeproj
 SCHEME=WarningLights
@@ -9,8 +10,24 @@ XCODEBUILD=/usr/bin/xcodebuild
 CP=/bin/cp
 RM=/bin/rm
 OPEN=/usr/bin/open
+PKILL=/usr/bin/pkill
 
-# Build the app in the build/directory
+# Show available targets
+.PHONY: help
+help:
+	@echo "Usage: make <target>"
+	@echo ""
+	@echo "Targets:"
+	@echo "  build      Build the app (Release) into build/"
+	@echo "  run        Build and launch the app"
+	@echo "  test       Run unit tests"
+	@echo "  install    Build and copy to /Applications"
+	@echo "  uninstall  Remove from /Applications"
+	@echo "  kill       Kill any running instances"
+	@echo "  clean      Delete build artifacts"
+	@echo "  help       Show this help"
+
+# Build the app in the build/ directory
 .PHONY: build
 build:
 	$(XCODEBUILD) -project $(PROJECT) -scheme $(SCHEME) -configuration $(CONFIGURATION) \
@@ -30,6 +47,16 @@ test:
 .PHONY: install
 install: build
 	$(CP) -R '$(APP_PATH)' /Applications
+
+# Remove the app from /Applications
+.PHONY: uninstall
+uninstall: kill
+	$(RM) -rf '/Applications/$(APP_NAME).app'
+
+# Kill any running instances
+.PHONY: kill
+kill:
+	-$(PKILL) -x $(APP_NAME)
 
 # Delete build artifacts
 .PHONY: clean

@@ -42,7 +42,7 @@ The menu displays:
   - Disk: usage percentage for boot volume
   - CPU: current usage percentage (0–100%) and whether the 10-minute sustained threshold is active
 - **Separator**
-- **About Warning Lights** menu item — enabled; opens the standard macOS About panel (`NSApplication.orderFrontStandardAboutPanel`) showing app name, version, and copyright from Info.plist
+- **About Warning Lights** menu item — enabled; activates the app (`NSApplication.activate()`) then opens the standard macOS About panel (`NSApplication.orderFrontStandardAboutPanel`) showing app name, version, and copyright from Info.plist. The activate call is required because `LSUIElement` apps do not automatically become active when showing a panel.
 - **Quit** menu item to terminate the app
 
 ### Notifications
