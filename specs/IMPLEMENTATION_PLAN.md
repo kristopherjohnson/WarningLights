@@ -36,6 +36,10 @@
 
 - [x] 4.5 Implement orange icon color for warning state: add `iconColor: Color?` to `SystemStatus` (orange when `hasWarning`, nil for monochrome when all clear); apply via `.foregroundStyle` in `MenuBarExtra` label; add unit tests [depends: 3.2]
 
+## Phase 4.6: App Icon [agent: swift-expert]
+
+- [x] 4.6 Design and create app icon: dark brownish background with an orange triangle; generate `.icns` asset set (all required sizes) and add to `Assets.xcassets` [depends: 1.1]
+
 ## Phase 5: Integration & Polish [agent: swift-expert]
 
 - [ ] 5.1 Verify icon renders correctly in light mode, dark mode, and with colored menu bar backgrounds [depends: 3.2]

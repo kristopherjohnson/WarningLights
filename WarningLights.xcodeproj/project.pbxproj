@@ -14,6 +14,7 @@
 		A1000001000000000000005A /* SystemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000005A /* SystemStatus.swift */; };
 		A1000001000000000000006A /* SystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000006A /* SystemMonitor.swift */; };
 		A1000001000000000000007A /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000007A /* MenuBarView.swift */; };
+		A1000001000000000000009A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000009A /* Assets.xcassets */; };
 		B100000100000000000000B1 /* MonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000200000000000000B1 /* MonitorTests.swift */; };
 		B100000100000000000000B2 /* CPUMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000200000000000000B2 /* CPUMonitorTests.swift */; };
 		B100000100000000000000B3 /* SystemStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000200000000000000B3 /* SystemStatusTests.swift */; };
@@ -38,6 +39,7 @@
 		A1000002000000000000006A /* SystemMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitor.swift; sourceTree = "<group>"; };
 		A1000002000000000000007A /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		A1000002000000000000008A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1000002000000000000009A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A100000200000000000000AA /* WarningLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarningLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B100000200000000000000B1 /* MonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorTests.swift; sourceTree = "<group>"; };
 		B100000200000000000000B2 /* CPUMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUMonitorTests.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				A1000002000000000000006A /* SystemMonitor.swift */,
 				A1000002000000000000007A /* MenuBarView.swift */,
 				A1000002000000000000008A /* Info.plist */,
+				A1000002000000000000009A /* Assets.xcassets */,
 			);
 			path = WarningLights;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1000001000000000000009A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

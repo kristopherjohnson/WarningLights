@@ -24,4 +24,6 @@
 2026-03-13 00:36 | IMPLEMENTATION_PLAN.md | Marked 6.1–6.3 complete — 38 unit tests implemented across CPUMonitorTests, MonitorTests, SystemStatusTests
 2026-03-13 00:36 | OPEN_ISSUES.md | Resolved disk API research: implementation uses volumeAvailableCapacityForImportantUsage
 2026-03-13 | SPECIFICATION.md, TEST_PLAN.md | Icon color: standard menu bar color (monochrome) when all clear; orange when any warning is active
+2026-03-13 | SPECIFICATION.md, IMPLEMENTATION_PLAN.md | App icon design: dark brownish background with orange triangle
+2026-03-13 | SPECIFICATION.md | App icon triangle: rounded corners, solid orange, no exclamation mark; generation script saved to specs/generate_icon.swift
 <!-- LOG_END -->
