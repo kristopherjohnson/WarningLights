@@ -23,4 +23,5 @@
 2026-03-13 00:36 | SPECIFICATION.md | About panel requires NSApplication.activate() before orderFrontStandardAboutPanel to bring it to foreground in LSUIElement apps
 2026-03-13 00:36 | IMPLEMENTATION_PLAN.md | Marked 6.1–6.3 complete — 38 unit tests implemented across CPUMonitorTests, MonitorTests, SystemStatusTests
 2026-03-13 00:36 | OPEN_ISSUES.md | Resolved disk API research: implementation uses volumeAvailableCapacityForImportantUsage
+2026-03-13 | SPECIFICATION.md, TEST_PLAN.md | Icon color: standard menu bar color (monochrome) when all clear; orange when any warning is active
 <!-- LOG_END -->

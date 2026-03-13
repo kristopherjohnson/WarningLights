@@ -32,6 +32,10 @@
 - [x] 4.3 Handle sleep/wake: observe `NSWorkspace.willSleepNotification` and `NSWorkspace.didWakeNotification`; suspend polling timer on sleep and restart it on wake [depends: 2.5]
 - [x] 4.4 Perform initial metric poll at launch (don't wait 60 seconds for first reading) [depends: 3.4]
 
+## Phase 4.5: Icon Color [agent: swift-expert]
+
+- [x] 4.5 Implement orange icon color for warning state: add `iconColor: Color?` to `SystemStatus` (orange when `hasWarning`, nil for monochrome when all clear); apply via `.foregroundStyle` in `MenuBarExtra` label; add unit tests [depends: 3.2]
+
 ## Phase 5: Integration & Polish [agent: swift-expert]
 
 - [ ] 5.1 Verify icon renders correctly in light mode, dark mode, and with colored menu bar backgrounds [depends: 3.2]

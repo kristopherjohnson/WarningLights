@@ -1,3 +1,4 @@
+import SwiftUI
 import XCTest
 
 @testable import WarningLights
@@ -183,5 +184,24 @@ final class IconSelectionTests: XCTestCase {
         // The .initial static value should start with all-clear icon.
         XCTAssertEqual(SystemStatus.initial.iconSymbolName, "checkmark.circle.fill",
             "Initial status should show the all-clear icon")
+    }
+
+    // MARK: Icon color
+
+    func testIconColorIsNilWhenAllClear() {
+        let status = makeStatus(hasWarning: false)
+        XCTAssertNil(status.iconColor,
+            "All-clear state should return nil iconColor (monochrome/template rendering)")
+    }
+
+    func testIconColorIsOrangeWhenWarning() {
+        let status = makeStatus(hasWarning: true)
+        XCTAssertEqual(status.iconColor, .orange,
+            "Warning state should return orange iconColor")
+    }
+
+    func testIconColorIsNilForInitialStatus() {
+        XCTAssertNil(SystemStatus.initial.iconColor,
+            "Initial status should use monochrome rendering (nil color)")
     }
 }

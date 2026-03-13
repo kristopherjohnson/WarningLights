@@ -40,6 +40,8 @@ WarningLightsApp (@main)
 
 **Data flow**: Monitors collect raw metrics → `SystemMonitor.pollAndPublish()` aggregates into `SystemStatus` → SwiftUI reactivity (`@Observable`) updates the menu bar icon and dropdown menu.
 
+**Icon color**: The menu bar icon uses monochrome/template rendering (standard menu bar color) when all clear, and orange when any warning is active. Controlled by `SystemStatus.iconColor` applied via `.foregroundStyle()` on the `MenuBarExtra` label.
+
 **Concurrency model**: All mutable state lives on `@MainActor` in `SystemMonitor`. Timer and notification callbacks use `MainActor.assumeIsolated` to dispatch back. Memory pressure uses a `DispatchSource` on the main queue. No shared mutable state outside `SystemMonitor`.
 
 **Warning thresholds**: Memory at `.warning`/`.critical` pressure (kernel-driven, not percentage), disk > 90% used, CPU > 75% sustained across all 10 rolling samples (10 minutes).

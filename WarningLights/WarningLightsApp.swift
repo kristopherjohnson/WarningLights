@@ -20,10 +20,13 @@ struct WarningLightsApp: App {
                     monitor.start()
                 }
         } label: {
-            // Use .template rendering so the system automatically inverts the
-            // icon for light/dark menu bar backgrounds and tinted backgrounds.
+            // When a warning is active, render the icon in orange so it stands
+            // out against the menu bar. When all clear, use monochrome/template
+            // rendering so the system automatically adapts to light/dark
+            // backgrounds and tinted menu bars.
             Image(systemName: monitor.status.iconSymbolName)
                 .symbolRenderingMode(.monochrome)
+                .foregroundStyle(monitor.status.iconColor ?? .primary)
         }
         .menuBarExtraStyle(.menu)
     }

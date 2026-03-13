@@ -35,6 +35,8 @@
 - Returns warning SF Symbol when any warning is `true`
 - Multiple warnings → general warning symbol (not metric-specific)
 - Single metric warning → appropriate metric-specific symbol
+- Icon uses `.monochrome` rendering (standard menu bar color) when `anyWarning` is `false`
+- Icon uses orange color when `anyWarning` is `true`
 
 ### Notification Logic
 - No notification posted when `hasWarning` stays `false`
