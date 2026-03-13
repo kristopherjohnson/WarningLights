@@ -7,7 +7,7 @@
     <key>CFBundleDisplayName</key>
     <string>Warning Lights</string>
     <key>CFBundleIdentifier</key>
-    <string>com.kristopherjohnson.WarningLights</string>
+    <string>net.kristopherjohnson.WarningLights</string>
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>
     <key>CFBundleVersion</key>

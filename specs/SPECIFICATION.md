@@ -136,7 +136,7 @@ The app is intended to be added to macOS Login Items (System Settings → Genera
 - No windows, no dock icon, no app switcher presence (`LSUIElement = YES`)
 - Must not show an onboarding window or setup wizard
 - Must compile and run on macOS 26+
-- App bundle identifier: `com.kristopherjohnson.WarningLights` (or similar)
+- App bundle identifier: `net.kristopherjohnson.WarningLights` (or similar)
 - No third-party dependencies; use only Apple frameworks
 
 ## Out of Scope

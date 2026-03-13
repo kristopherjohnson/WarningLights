@@ -32,7 +32,7 @@ struct WarningLightsApp: App {
 
     /// If another instance of this app is already running, terminate this one silently.
     private func enforceSingleInstance() {
-        let bundleID = Bundle.main.bundleIdentifier ?? "com.kristopherjohnson.WarningLights"
+        let bundleID = Bundle.main.bundleIdentifier ?? "net.kristopherjohnson.WarningLights"
         let running = NSRunningApplication.runningApplications(
             withBundleIdentifier: bundleID
         )
