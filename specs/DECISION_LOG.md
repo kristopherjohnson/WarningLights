@@ -26,4 +26,5 @@
 2026-03-13 | SPECIFICATION.md, TEST_PLAN.md | Icon color: standard menu bar color (monochrome) when all clear; orange when any warning is active
 2026-03-13 | SPECIFICATION.md, IMPLEMENTATION_PLAN.md | App icon design: dark brownish background with orange triangle
 2026-03-13 | SPECIFICATION.md | App icon triangle: rounded corners, solid orange, no exclamation mark; generation script saved to specs/generate_icon.swift
+2026-03-15 | SPECIFICATION.md, IMPLEMENTATION_PLAN.md, TEST_PLAN.md | Add battery warning: warn when on battery power AND charge < 20%; use IOKit IOPSCopyPowerSourcesInfo; no warning on machines with no battery; battery omitted from menu on desktop Macs
 <!-- LOG_END -->

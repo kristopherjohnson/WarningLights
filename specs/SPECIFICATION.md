@@ -26,6 +26,7 @@ Warning Lights is a macOS menu bar application that monitors system health metri
 | Memory | System memory pressure reaches `.warning` or `.critical` level | Event-driven via `DispatchSource.makeMemoryPressureSource`, supplemented by 60-second timer for UI refresh |
 | Disk | Boot volume usage > 90% | Every 60 seconds |
 | CPU | Sustained CPU usage > 75% (normalized 0–100% across all cores) for 10+ consecutive minutes | Every 60 seconds |
+| Battery | On battery power (not plugged in) AND charge < 20% | Event-driven via `IOPSNotificationCreateRunLoopSource` |
 
 ### Menu Bar Icon
 
@@ -43,6 +44,7 @@ The menu displays:
   - Memory: pressure level ("Normal" / "Warning" / "Critical") and used/total bytes (e.g., "12.4 GB / 16 GB")
   - Disk: usage percentage for boot volume
   - CPU: current usage percentage (0–100%) and whether the 10-minute sustained threshold is active
+  - Battery: current charge percentage and charging state (e.g., "85% (charging)" or "18% on battery"); omitted entirely when no battery is present
 - **Separator**
 - **About Warning Lights** menu item — enabled; activates the app (`NSApplication.activate()`) then opens the standard macOS About panel (`NSApplication.orderFrontStandardAboutPanel`) showing app name, version, and copyright from Info.plist. The activate call is required because `LSUIElement` apps do not automatically become active when showing a panel.
 - **Quit** menu item to terminate the app
@@ -51,7 +53,7 @@ The menu displays:
 
 The app posts a local `UserNotification` when the overall warning state transitions:
 
-- **OK → Warning**: Notification title "Warning Lights" with body describing which metric(s) triggered the warning (e.g., "Memory pressure is high", "Disk is nearly full", "CPU is overloaded").
+- **OK → Warning**: Notification title "Warning Lights" with body describing which metric(s) triggered the warning (e.g., "Memory pressure is high", "Disk is nearly full", "CPU is overloaded", "Battery is low").
 - **Warning → OK**: Notification title "Warning Lights" with body "System is healthy again."
 
 Notification behavior:
@@ -74,6 +76,7 @@ The application has no main window. It is a pure menu bar extra (`LSUIElement = 
 | Memory warning | `memorychip.fill` or `exclamationmark.triangle.fill` | Memory pressure high |
 | Disk warning | `externaldrive.fill.badge.exclamationmark` | Disk nearly full |
 | CPU warning | `cpu.fill` or `exclamationmark.triangle.fill` | CPU overloaded |
+| Battery warning | `battery.25` or `exclamationmark.triangle.fill` | Battery low |
 | Multiple warnings | `exclamationmark.triangle.fill` | General warning |
 
 > **Open**: Final SF Symbol selection to be confirmed during implementation. Prefer symbols available in macOS 26 SDK.
@@ -84,6 +87,7 @@ The application has no main window. It is a pure menu bar extra (`LSUIElement = 
 ● Memory: Normal (10.2 GB / 16 GB)
 ● Disk: 78% used (boot volume)
 ● CPU: 45% (no sustained overload)
+● Battery: 85% (charging)
 ---
 About Warning Lights
 Quit Warning Lights
@@ -95,6 +99,7 @@ When a metric is in warning state, its menu item text reflects the issue clearly
 
 ### System Metrics Collection
 
+- **Battery**: Use IOKit `IOPSCopyPowerSourcesInfo()` and `IOPSGetPowerSourceDescription()` to read power source state (`kIOPSPowerSourceStateKey`: `"Battery Power"` vs `"AC Power"`) and current capacity (`kIOPSCurrentCapacityKey` and `kIOPSMaxCapacityKey`, both as percentages 0–100). Register for change notifications via `IOPSNotificationCreateRunLoopSource`. Warning triggers when the power source state is `"Battery Power"` AND the current capacity is less than 20. When the machine has no battery (e.g., a Mac mini or desktop), the battery monitor should remain inactive and never report a warning.
 - **Memory (pressure detection)**: Use `DispatchSource.makeMemoryPressureSource(eventMask: .all, queue: .main)` to receive kernel memory pressure events. This is the only public, supported API that reports the kernel's actual memory pressure determination. Three levels exist: `.normal`, `.warning`, `.critical` (Swift `DispatchSource.MemoryPressureEvent`). Trigger the warning icon at `.warning` — this is the "degrading but still usable" level. By `.critical`, the OOM dialog is imminent. Do NOT use percentage-based heuristics to determine alert state.
 - **Memory (display stats)**: Use `host_statistics64` with `HOST_VM_INFO64` to read raw VM page counts (`free_count`, `active_count`, `inactive_count`, `wire_count`, `compressor_page_count`) for informational display in the menu. Multiply by `vm_kernel_page_size` for bytes. Use `ProcessInfo.processInfo.physicalMemory` for total RAM.
 - **Disk**: Use `FileManager.default.volumeAvailableCapacityForImportantUsage` on the boot volume, or `statvfs` / `getattrlist`

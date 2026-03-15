@@ -33,7 +33,7 @@ make run
 
 Or run directly from Xcode with **Product > Run** (Cmd+R).
 
-The menu bar icon appears immediately. Click it to see memory, disk, and CPU status.
+The menu bar icon appears immediately. Click it to see memory, disk, CPU, and battery status.
 
 ## Install
 
@@ -70,6 +70,9 @@ make test
 | Memory | System memory pressure reaches `.warning` or `.critical` | Event-driven via `DispatchSource`, refreshed every 60s |
 | Disk | Boot volume usage > 90% | Every 60 seconds |
 | CPU | Sustained usage > 75% for 10+ consecutive minutes | Every 60 seconds |
+| Battery | On battery power with < 20% charge remaining | Event-driven via `IOPSNotificationCreateRunLoopSource`, refreshed every 60s |
+
+Desktop Macs without a battery report no battery in the menu and never trigger a battery warning.
 
 ## License
 

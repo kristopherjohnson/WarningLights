@@ -14,6 +14,13 @@
 - [x] 2.4 Create `SystemStatus` value type aggregating results from all three monitors [depends: 2.1, 2.2, 2.3]
 - [x] 2.5 Create `SystemMonitor` actor that: (a) starts the memory pressure dispatch source, (b) runs a 60-second timer for disk and CPU polling plus memory display stats refresh, (c) publishes `SystemStatus` updates on change or timer tick [depends: 2.4]
 
+## Phase 2.6–2.8: Battery Monitor [agent: swift-expert]
+
+- [x] 2.6 Implement `BatteryMonitor`: use IOKit `IOPSCopyPowerSourcesInfo()` / `IOPSGetPowerSourceDescription()` to read power source state and current capacity; register for change notifications via `IOPSNotificationCreateRunLoopSource`; warning when state is `"Battery Power"` AND capacity < 20%; no-op (no warning) on machines with no battery [depends: 2.4]
+- [x] 2.7 Update `SystemStatus` to include battery warning flag and battery display info (percentage + charging state, optional) [depends: 2.6]
+- [x] 2.8 Update `SystemMonitor` to start `BatteryMonitor`, pass battery state into `SystemStatus`, and handle battery change callbacks on main thread [depends: 2.7]
+- [x] 2.9 Update README.md to document battery monitoring (feature list, warning threshold, no-battery behavior) [depends: 2.8]
+
 ## Phase 3: Menu Bar UI [agent: swift-expert]
 
 - [x] 3.1 Create SwiftUI `MenuBarExtra` with SF Symbol icon driven by `SystemStatus` [depends: 1.3, 2.4]
@@ -52,11 +59,14 @@
 - [x] 6.1 Write unit tests for `MemoryMonitor`, `DiskMonitor`, `CPUMonitor` with mock data [parallel]
 - [x] 6.2 Write unit tests for `SystemStatus` warning flag logic [parallel]
 - [x] 6.3 Write unit tests for icon selection logic [parallel]
-- [ ] 6.4 Manual test: simulate high memory pressure and verify icon changes [depends: 6.1, 6.2, 6.3]
-- [ ] 6.5 Manual test: fill disk to > 90% and verify icon changes [depends: 6.4]
-- [ ] 6.6 Manual test: add app to Login Items; log out and back in; verify app starts silently and icon appears [depends: 5.4]
-- [ ] 6.7 Manual test: launch a second instance while app is running; verify second instance quits without UI [depends: 4.1]
-- [ ] 6.8 Manual test: put system to sleep and wake it; verify monitoring resumes and icon reflects current state [depends: 4.3]
+- [x] 6.4 Write unit tests for `BatteryMonitor`: no warning when charging/AC; warning when on battery < 20%; no warning on no-battery machine; warning resets when charge rises above threshold or plugged in [depends: 2.6]
+- [ ] 6.5 Manual test: simulate high memory pressure and verify icon changes [depends: 6.1, 6.2, 6.3]
+- [ ] 6.6 Manual test: fill disk to > 90% and verify icon changes [depends: 6.5]
+- [ ] 6.7 Manual test: unplug charger with battery < 20%; verify icon changes to warning and notification fires [depends: 2.8]
+- [ ] 6.8 Manual test: plug charger back in or charge above 20%; verify icon reverts and recovery notification fires [depends: 6.7]
+- [ ] 6.9 Manual test: add app to Login Items; log out and back in; verify app starts silently and icon appears [depends: 5.4]
+- [ ] 6.10 Manual test: launch a second instance while app is running; verify second instance quits without UI [depends: 4.1]
+- [ ] 6.11 Manual test: put system to sleep and wake it; verify monitoring resumes and icon reflects current state [depends: 4.3]
 
 ## Dependencies
 

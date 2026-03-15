@@ -6,12 +6,14 @@ struct SystemStatus {
     let memory: MemoryMonitor.Stats
     let disk: DiskMonitor.Stats
     let cpu: CPUMonitor.Stats
+    let battery: BatteryMonitor.Stats
 
     /// True when any metric is in a warning state.
     var hasWarning: Bool {
         memory.pressureLevel.isWarning
             || disk.isWarning
             || cpu.isSustainedOverload
+            || battery.isWarning
     }
 
     /// SF Symbol name for the menu bar icon.
@@ -29,6 +31,7 @@ struct SystemStatus {
     static let initial = SystemStatus(
         memory: .unknown,
         disk: .unknown,
-        cpu: .unknown
+        cpu: .unknown,
+        battery: .unknown
     )
 }

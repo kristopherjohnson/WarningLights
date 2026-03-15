@@ -18,6 +18,12 @@ struct MenuBarView: View {
         Text("CPU: \(status.cpu.displayString)")
             .disabled(true)
 
+        // Battery row is only shown on hardware with a battery.
+        if status.battery.hasBattery {
+            Text("Battery: \(status.battery.displayString)")
+                .disabled(true)
+        }
+
         Divider()
 
         // About item

@@ -14,7 +14,8 @@ final class SystemStatusWarningTests: XCTestCase {
         diskUsedBytes: Int64 = 50,
         diskTotalBytes: Int64 = 100,
         cpuCurrentUsage: Double = 0.0,
-        cpuIsSustainedOverload: Bool = false
+        cpuIsSustainedOverload: Bool = false,
+        battery: BatteryMonitor.Stats = .unknown
     ) -> SystemStatus {
         SystemStatus(
             memory: MemoryMonitor.Stats(
@@ -29,7 +30,8 @@ final class SystemStatusWarningTests: XCTestCase {
             cpu: CPUMonitor.Stats(
                 currentUsage: cpuCurrentUsage,
                 isSustainedOverload: cpuIsSustainedOverload
-            )
+            ),
+            battery: battery
         )
     }
 
@@ -103,6 +105,30 @@ final class SystemStatusWarningTests: XCTestCase {
             "hasWarning should be false when CPU is high but not sustained overload (other metrics healthy)")
     }
 
+    // MARK: hasWarning — battery triggers
+
+    func testHasWarningTrueWhenBatteryLowOnBatteryPower() {
+        let status = makeStatus(
+            battery: BatteryMonitor.Stats(hasBattery: true, capacity: 10, isCharging: false)
+        )
+        XCTAssertTrue(status.hasWarning,
+            "hasWarning should be true when battery is low and on battery power")
+    }
+
+    func testHasWarningFalseWhenBatteryLowButCharging() {
+        let status = makeStatus(
+            battery: BatteryMonitor.Stats(hasBattery: true, capacity: 10, isCharging: true)
+        )
+        XCTAssertFalse(status.hasWarning,
+            "hasWarning should be false when battery is low but charging")
+    }
+
+    func testHasWarningFalseWhenNoBattery() {
+        let status = makeStatus(battery: .unknown)
+        XCTAssertFalse(status.hasWarning,
+            "hasWarning should be false when there is no battery")
+    }
+
     // MARK: hasWarning — combined
 
     func testHasWarningTrueWhenMultipleWarnings() {
@@ -129,7 +155,8 @@ final class IconSelectionTests: XCTestCase {
                 totalBytes: 0
             ),
             disk: DiskMonitor.Stats(usedBytes: 0, totalBytes: 100),
-            cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false)
+            cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false),
+            battery: .unknown
         )
     }
 
@@ -149,12 +176,14 @@ final class IconSelectionTests: XCTestCase {
         let clear = SystemStatus(
             memory: MemoryMonitor.Stats(pressureLevel: .normal, usedBytes: 0, totalBytes: 0),
             disk: DiskMonitor.Stats(usedBytes: 0, totalBytes: 100),
-            cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false)
+            cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false),
+            battery: .unknown
         )
         let warning = SystemStatus(
             memory: MemoryMonitor.Stats(pressureLevel: .warning, usedBytes: 0, totalBytes: 0),
             disk: DiskMonitor.Stats(usedBytes: 0, totalBytes: 100),
-            cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false)
+            cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false),
+            battery: .unknown
         )
         XCTAssertNotEqual(clear.iconSymbolName, warning.iconSymbolName,
             "Icon symbol must differ between all-clear and warning states")
@@ -164,7 +193,8 @@ final class IconSelectionTests: XCTestCase {
         let status = SystemStatus(
             memory: MemoryMonitor.Stats(pressureLevel: .normal, usedBytes: 0, totalBytes: 0),
             disk: DiskMonitor.Stats(usedBytes: 95, totalBytes: 100),
-            cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false)
+            cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false),
+            battery: .unknown
         )
         XCTAssertEqual(status.iconSymbolName, "exclamationmark.triangle.fill",
             "Disk > 90% should trigger the warning icon")
@@ -174,7 +204,8 @@ final class IconSelectionTests: XCTestCase {
         let status = SystemStatus(
             memory: MemoryMonitor.Stats(pressureLevel: .normal, usedBytes: 0, totalBytes: 0),
             disk: DiskMonitor.Stats(usedBytes: 0, totalBytes: 100),
-            cpu: CPUMonitor.Stats(currentUsage: 0.9, isSustainedOverload: true)
+            cpu: CPUMonitor.Stats(currentUsage: 0.9, isSustainedOverload: true),
+            battery: .unknown
         )
         XCTAssertEqual(status.iconSymbolName, "exclamationmark.triangle.fill",
             "CPU sustained overload should trigger the warning icon")

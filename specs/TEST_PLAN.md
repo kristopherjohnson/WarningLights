@@ -24,11 +24,20 @@
 - Sustained warning resets to `false` when any sample drops below 75%
 - `vm_deallocate` is called on the `processor_info_array_t` after each sample (no memory leak)
 
+### BatteryMonitor
+- Warning flag is `false` when power source is AC / charging
+- Warning flag is `true` when on battery power AND capacity < 20%
+- Warning flag is `false` when on battery power AND capacity ≥ 20%
+- Warning flag is `false` on a machine with no battery (e.g., Mac mini)
+- Display string includes percentage and charging state
+- Battery menu item is omitted when no battery is present
+
 ### SystemStatus
-- `anyWarning` is `false` when all three monitors report no warnings
+- `anyWarning` is `false` when all four monitors report no warnings
 - `anyWarning` is `true` when memory warning is active
 - `anyWarning` is `true` when disk warning is active
 - `anyWarning` is `true` when CPU warning is active
+- `anyWarning` is `true` when battery warning is active
 
 ### Icon Selection Logic
 - Returns "all clear" SF Symbol when `anyWarning` is `false`
@@ -48,7 +57,7 @@
 - Recovery notification body is "System is healthy again"
 
 ### Menu Construction
-- Menu contains exactly 3 metric items + 1 separator + 1 About item + 1 Quit item
+- Menu contains exactly 4 metric items (or 3 on machines with no battery) + 1 separator + 1 About item + 1 Quit item
 - All metric items are disabled (not selectable)
 - Memory item text includes pressure level and used/total GB
 - Disk item text includes current percentage
@@ -94,6 +103,12 @@
 - [ ] Run CPU-intensive workload exceeding 75% of all-core capacity for > 10 minutes → icon shows warning
 - [ ] CPU item in menu shows sustained overload state
 
+### Battery Warning
+- [ ] Unplug charger while battery < 20% → icon changes to warning symbol and notification fires
+- [ ] Battery item in menu shows current percentage and "on battery" state
+- [ ] Plug charger back in (or charge rises above 20%) → icon reverts to all-clear and recovery notification fires
+- [ ] On a machine with no battery (e.g., Mac mini): no battery menu item appears and no battery warning ever triggers
+
 ### Appearance
 - [ ] Icon renders correctly in light mode (dark menu bar text)
 - [ ] Icon renders correctly in dark mode (light menu bar text)
@@ -122,6 +137,8 @@
 - System sleep/wake: monitoring resumes correctly after wake
 - App launched at login before user-space is fully initialized: metric collection must handle transient errors gracefully
 - Notification permission denied: app must not crash or show errors; icon still updates normally
+- Machine has no battery (Mac mini, Mac Pro, iMac): battery monitor inactive, no battery menu item, no battery warning ever fires
+- Battery drops below 20% while already on battery: warning fires immediately without waiting for a state transition from charging
 
 ## Performance Tests
 

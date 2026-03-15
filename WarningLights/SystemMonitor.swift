@@ -16,6 +16,7 @@ final class SystemMonitor {
     private let memoryMonitor = MemoryMonitor()
     private let diskMonitor = DiskMonitor()
     private let cpuMonitor = CPUMonitor()
+    private let batteryMonitor = BatteryMonitor()
     private var pollingTimer: Timer?
     private var sleepObserver: NSObjectProtocol?
     private var wakeObserver: NSObjectProtocol?
@@ -34,6 +35,11 @@ final class SystemMonitor {
             self?.publishStatus()
         }
         memoryMonitor.start()
+
+        batteryMonitor.onChange = { [weak self] in
+            self?.publishStatus()
+        }
+        batteryMonitor.start()
 
         // Prime CPU sampler (first call stores ticks; no usage value yet).
         cpuMonitor.refresh()
@@ -55,6 +61,7 @@ final class SystemMonitor {
     func stop() {
         stopPollingTimer()
         memoryMonitor.stop()
+        batteryMonitor.stop()
         unregisterSystemNotifications()
     }
 
@@ -81,6 +88,7 @@ final class SystemMonitor {
         memoryMonitor.refreshStats()
         diskMonitor.refresh()
         cpuMonitor.refresh()
+        batteryMonitor.refresh()
         publishStatus()
     }
 
@@ -89,7 +97,8 @@ final class SystemMonitor {
         let newStatus = SystemStatus(
             memory: memoryMonitor.stats,
             disk: diskMonitor.stats,
-            cpu: cpuMonitor.stats
+            cpu: cpuMonitor.stats,
+            battery: batteryMonitor.stats
         )
         status = newStatus
         previousHasWarning = newStatus.hasWarning
@@ -126,6 +135,9 @@ final class SystemMonitor {
         }
         if status.cpu.isSustainedOverload {
             reasons.append("CPU is overloaded.")
+        }
+        if status.battery.isWarning {
+            reasons.append("Battery is low.")
         }
         let body = reasons.joined(separator: " ")
         postNotification(title: "Warning Lights", body: body)

@@ -14,10 +14,12 @@
 		A1000001000000000000005A /* SystemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000005A /* SystemStatus.swift */; };
 		A1000001000000000000006A /* SystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000006A /* SystemMonitor.swift */; };
 		A1000001000000000000007A /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000007A /* MenuBarView.swift */; };
+		A100000100000000000000BA /* BatteryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000200000000000000BA /* BatteryMonitor.swift */; };
 		A1000001000000000000009A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000002000000000000009A /* Assets.xcassets */; };
 		B100000100000000000000B1 /* MonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000200000000000000B1 /* MonitorTests.swift */; };
 		B100000100000000000000B2 /* CPUMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000200000000000000B2 /* CPUMonitorTests.swift */; };
 		B100000100000000000000B3 /* SystemStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000200000000000000B3 /* SystemStatusTests.swift */; };
+		B100000100000000000000B4 /* BatteryMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000200000000000000B4 /* BatteryMonitorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,12 +40,14 @@
 		A1000002000000000000005A /* SystemStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemStatus.swift; sourceTree = "<group>"; };
 		A1000002000000000000006A /* SystemMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMonitor.swift; sourceTree = "<group>"; };
 		A1000002000000000000007A /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		A100000200000000000000BA /* BatteryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitor.swift; sourceTree = "<group>"; };
 		A1000002000000000000008A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1000002000000000000009A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A100000200000000000000AA /* WarningLights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WarningLights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B100000200000000000000B1 /* MonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorTests.swift; sourceTree = "<group>"; };
 		B100000200000000000000B2 /* CPUMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPUMonitorTests.swift; sourceTree = "<group>"; };
 		B100000200000000000000B3 /* SystemStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemStatusTests.swift; sourceTree = "<group>"; };
+		B100000200000000000000B4 /* BatteryMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitorTests.swift; sourceTree = "<group>"; };
 		B100000200000000000000BA /* WarningLightsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WarningLightsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -75,6 +79,7 @@
 				A1000002000000000000005A /* SystemStatus.swift */,
 				A1000002000000000000006A /* SystemMonitor.swift */,
 				A1000002000000000000007A /* MenuBarView.swift */,
+				A100000200000000000000BA /* BatteryMonitor.swift */,
 				A1000002000000000000008A /* Info.plist */,
 				A1000002000000000000009A /* Assets.xcassets */,
 			);
@@ -105,6 +110,7 @@
 				B100000200000000000000B1 /* MonitorTests.swift */,
 				B100000200000000000000B2 /* CPUMonitorTests.swift */,
 				B100000200000000000000B3 /* SystemStatusTests.swift */,
+				B100000200000000000000B4 /* BatteryMonitorTests.swift */,
 			);
 			path = WarningLightsTests;
 			sourceTree = "<group>";
@@ -215,6 +221,7 @@
 				A1000001000000000000005A /* SystemStatus.swift in Sources */,
 				A1000001000000000000006A /* SystemMonitor.swift in Sources */,
 				A1000001000000000000007A /* MenuBarView.swift in Sources */,
+				A100000100000000000000BA /* BatteryMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +232,7 @@
 				B100000100000000000000B1 /* MonitorTests.swift in Sources */,
 				B100000100000000000000B2 /* CPUMonitorTests.swift in Sources */,
 				B100000100000000000000B3 /* SystemStatusTests.swift in Sources */,
+				B100000100000000000000B4 /* BatteryMonitorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
