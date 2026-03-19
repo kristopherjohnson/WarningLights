@@ -28,6 +28,20 @@ struct SystemStatus {
         hasWarning ? .orange : nil
     }
 
+    /// Tooltip text shown when hovering over the menu bar icon.
+    /// Mirrors the disabled menu item lines; battery line is omitted when no battery is present.
+    var tooltipString: String {
+        var lines = [
+            "Memory: \(memory.displayString)",
+            "Disk: \(disk.displayString)",
+            "CPU: \(cpu.displayString)",
+        ]
+        if battery.hasBattery {
+            lines.append("Battery: \(battery.displayString)")
+        }
+        return lines.joined(separator: "\n")
+    }
+
     static let initial = SystemStatus(
         memory: .unknown,
         disk: .unknown,

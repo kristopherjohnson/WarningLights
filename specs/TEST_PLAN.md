@@ -47,6 +47,12 @@
 - Icon uses `.monochrome` rendering (standard menu bar color) when `anyWarning` is `false`
 - Icon uses orange color when `anyWarning` is `true`
 
+### Tooltip String
+- `tooltipString` contains one line per metric in the same format as disabled menu items
+- Battery line is included when `hasBattery` is `true`
+- Battery line is omitted when `hasBattery` is `false`
+- `tooltipString` updates when any metric value changes
+
 ### Notification Logic
 - No notification posted when `hasWarning` stays `false`
 - No notification posted when `hasWarning` stays `true`
@@ -89,6 +95,8 @@
 ### All Clear State
 - [ ] On a healthy system, icon is the "all clear" symbol
 - [ ] Menu shows normal readings for all metrics
+- [ ] Hover over menu bar icon → tooltip appears with all metric lines
+- [ ] On hardware with no battery: tooltip omits battery line
 
 ### Memory Warning
 - [ ] Simulate high memory pressure → icon changes to warning symbol

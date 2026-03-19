@@ -4,6 +4,7 @@ A macOS menu bar app that monitors system health (memory pressure, disk usage, C
 
 - Runs silently in the background with no dock icon and no windows
 - Displays an SF Symbol in the menu bar: checkmark when healthy, orange warning triangle when something needs attention
+- Hover over the icon to see a tooltip with current metrics
 - Click the icon to see current readings for all metrics
 
 ## Requirements

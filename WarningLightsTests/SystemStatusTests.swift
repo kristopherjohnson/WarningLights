@@ -236,3 +236,62 @@ final class IconSelectionTests: XCTestCase {
             "Initial status should use monochrome rendering (nil color)")
     }
 }
+
+// MARK: - Tooltip String Tests (4.7)
+
+final class TooltipStringTests: XCTestCase {
+
+    private func makeStatus(hasBattery: Bool) -> SystemStatus {
+        SystemStatus(
+            memory: MemoryMonitor.Stats(
+                pressureLevel: .normal,
+                usedBytes: UInt64(4 * 1_073_741_824),
+                totalBytes: UInt64(16 * 1_073_741_824)
+            ),
+            disk: DiskMonitor.Stats(usedBytes: 78, totalBytes: 100),
+            cpu: CPUMonitor.Stats(currentUsage: 0.45, isSustainedOverload: false),
+            battery: hasBattery
+                ? BatteryMonitor.Stats(hasBattery: true, capacity: 85, isCharging: true)
+                : .unknown
+        )
+    }
+
+    func testTooltipContainsMemoryLine() {
+        let status = makeStatus(hasBattery: false)
+        XCTAssertTrue(status.tooltipString.contains("Memory:"),
+            "Tooltip must include a Memory line")
+    }
+
+    func testTooltipContainsDiskLine() {
+        let status = makeStatus(hasBattery: false)
+        XCTAssertTrue(status.tooltipString.contains("Disk:"),
+            "Tooltip must include a Disk line")
+    }
+
+    func testTooltipContainsCPULine() {
+        let status = makeStatus(hasBattery: false)
+        XCTAssertTrue(status.tooltipString.contains("CPU:"),
+            "Tooltip must include a CPU line")
+    }
+
+    func testTooltipOmitsBatteryLineWhenNoBattery() {
+        let status = makeStatus(hasBattery: false)
+        XCTAssertFalse(status.tooltipString.contains("Battery:"),
+            "Tooltip must not include a Battery line when no battery is present")
+    }
+
+    func testTooltipIncludesBatteryLineWhenHasBattery() {
+        let status = makeStatus(hasBattery: true)
+        XCTAssertTrue(status.tooltipString.contains("Battery:"),
+            "Tooltip must include a Battery line when battery is present")
+    }
+
+    func testTooltipMatchesMenuItemFormats() {
+        let status = makeStatus(hasBattery: true)
+        // Each line should mirror the corresponding disabled menu item text.
+        XCTAssertTrue(status.tooltipString.contains(status.memory.displayString))
+        XCTAssertTrue(status.tooltipString.contains(status.disk.displayString))
+        XCTAssertTrue(status.tooltipString.contains(status.cpu.displayString))
+        XCTAssertTrue(status.tooltipString.contains(status.battery.displayString))
+    }
+}

@@ -19,6 +19,12 @@ struct WarningLightsApp: App {
                     // the entire app lifetime.
                     monitor.start()
                 }
+                .onChange(of: monitor.status.tooltipString, initial: true) { _, newValue in
+                    // Defer to next run loop tick so the status bar button exists.
+                    DispatchQueue.main.async {
+                        StatusItemTooltip.update(newValue)
+                    }
+                }
         } label: {
             // When a warning is active, render the icon in orange so it stands
             // out against the menu bar. When all clear, use monochrome/template

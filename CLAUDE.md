@@ -35,12 +35,14 @@ WarningLightsApp (@main)
        ├─ MemoryMonitor  — event-driven (DispatchSourceMemoryPressure) + 60s polling for VM stats
        ├─ DiskMonitor     — 60s polling via FileManager (boot volume only)
        ├─ CPUMonitor      — 60s polling via host_processor_info, 10-sample ring buffer
-       └─ status: SystemStatus → drives MenuBarExtra icon + MenuBarView
+       └─ status: SystemStatus → drives MenuBarExtra icon, tooltip + MenuBarView
 ```
 
 **Data flow**: Monitors collect raw metrics → `SystemMonitor.pollAndPublish()` aggregates into `SystemStatus` → SwiftUI reactivity (`@Observable`) updates the menu bar icon and dropdown menu.
 
 **Icon color**: The menu bar icon uses monochrome/template rendering (standard menu bar color) when all clear, and orange when any warning is active. Controlled by `SystemStatus.iconColor` applied via `.foregroundStyle()` on the `MenuBarExtra` label.
+
+**Tooltip**: Hovering over the menu bar icon shows a tooltip with the current metrics (same text as the disabled menu items). SwiftUI's `.help()` does not work inside `.menu`-style `MenuBarExtra` labels, so `StatusItemTooltip` uses KVC on the private `NSStatusBarWindow` to find the `NSStatusItem` and set `button.toolTip` directly. Updated via `.onChange(of: status.tooltipString)`.
 
 **Concurrency model**: All mutable state lives on `@MainActor` in `SystemMonitor`. Timer and notification callbacks use `MainActor.assumeIsolated` to dispatch back. Memory pressure uses a `DispatchSource` on the main queue. No shared mutable state outside `SystemMonitor`.
 
@@ -60,3 +62,4 @@ Tests call real OS APIs and validate postconditions (ranges, invariants) rather 
 - `CPUUsageSamplerTests` — delta math, ring buffer, UInt32 wraparound
 - `SystemStatusWarningTests` — warning flag aggregation
 - `IconSelectionTests` — SF Symbol selection based on warning state
+- `TooltipStringTests` — tooltip text content and battery line inclusion/omission

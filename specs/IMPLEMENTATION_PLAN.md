@@ -39,9 +39,10 @@
 - [x] 4.3 Handle sleep/wake: observe `NSWorkspace.willSleepNotification` and `NSWorkspace.didWakeNotification`; suspend polling timer on sleep and restart it on wake [depends: 2.5]
 - [x] 4.4 Perform initial metric poll at launch (don't wait 60 seconds for first reading) [depends: 3.4]
 
-## Phase 4.5: Icon Color [agent: swift-expert]
+## Phase 4.5: Icon Color & Tooltip [agent: swift-expert]
 
 - [x] 4.5 Implement orange icon color for warning state: add `iconColor: Color?` to `SystemStatus` (orange when `hasWarning`, nil for monochrome when all clear); apply via `.foregroundStyle` in `MenuBarExtra` label; add unit tests [depends: 3.2]
+- [x] 4.7 Implement hover tooltip on menu bar icon: add `tooltipString: String` to `SystemStatus` (same format as the disabled menu items; battery line omitted when no battery); apply via `.help()` modifier on the `MenuBarExtra` icon label; add unit tests for `tooltipString` [depends: 4.5]
 
 ## Phase 4.6: App Icon [agent: swift-expert]
 
