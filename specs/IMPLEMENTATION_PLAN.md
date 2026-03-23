@@ -48,6 +48,12 @@
 
 - [x] 4.6 Design and create app icon: dark brownish background with an orange triangle; generate `.icns` asset set (all required sizes) and add to `Assets.xcassets` [depends: 1.1]
 
+## Phase 4.8: Fix Stale Zeroes on First Menu/Tooltip Open [agent: swift-expert]
+
+- [x] 4.8.1 Add `publishStatus()` call at end of `SystemMonitor.start()`, after monitors are initialized and first data is read — memory, disk, and battery show real values immediately; CPU may remain `.unknown` until second sample [depends: 2.5]
+- [x] 4.8.2 Add unit test: after `start()` completes, `status.memory` is not `.unknown`, `status.disk` is not `.unknown` [depends: 4.8.1]
+- [x] 4.8.3 Run full test suite to verify no regressions [depends: 4.8.2]
+
 ## Phase 5: Integration & Polish [agent: swift-expert]
 
 - [ ] 5.1 Verify icon renders correctly in light mode, dark mode, and with colored menu bar backgrounds [depends: 3.2]

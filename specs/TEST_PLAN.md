@@ -47,6 +47,12 @@
 - Icon uses `.monochrome` rendering (standard menu bar color) when `anyWarning` is `false`
 - Icon uses orange color when `anyWarning` is `true`
 
+### SystemMonitor Initialization
+- After `start()`, `status.memory` is not `.unknown` (real data available immediately)
+- After `start()`, `status.disk` is not `.unknown` (real data available immediately)
+- After `start()`, `status.cpu` may be `.unknown` (needs two samples for delta — acceptable)
+- Menu items and tooltip show non-zero real values on first open after launch
+
 ### Tooltip String
 - `tooltipString` contains one line per metric in the same format as disabled menu items
 - Battery line is included when `hasBattery` is `true`

@@ -28,4 +28,5 @@
 2026-03-13 | SPECIFICATION.md | App icon triangle: rounded corners, solid orange, no exclamation mark; generation script saved to specs/generate_icon.swift
 2026-03-15 | SPECIFICATION.md, IMPLEMENTATION_PLAN.md, TEST_PLAN.md | Add battery warning: warn when on battery power AND charge < 20%; use IOKit IOPSCopyPowerSourcesInfo; no warning on machines with no battery; battery omitted from menu on desktop Macs
 2026-03-18 | SPECIFICATION.md, IMPLEMENTATION_PLAN.md, TEST_PLAN.md | Add hover tooltip on menu bar icon showing current metrics (same format as disabled menu items), implemented via SwiftUI .help() modifier on the icon label; battery line omitted when no battery present
+2026-03-23 | IMPLEMENTATION_PLAN.md | Add Phase 4.8: fix stale zeroes by calling publishStatus() at end of start(); CPU unknown is acceptable initially
 <!-- LOG_END -->

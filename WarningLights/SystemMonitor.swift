@@ -45,6 +45,10 @@ final class SystemMonitor {
         cpuMonitor.refresh()
         diskMonitor.refresh()
 
+        // Publish immediately so the UI shows real memory/disk/battery data
+        // before the 2-second CPU priming delay completes.
+        publishStatus()
+
         // Perform initial full poll after a brief delay so the CPU sampler
         // has two samples to diff.
         let initialDelay: TimeInterval = 2

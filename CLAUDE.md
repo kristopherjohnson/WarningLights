@@ -57,6 +57,8 @@ WarningLightsApp (@main)
 
 ## Tests
 
+**Kill any running instance before running tests** (`make kill`). The single-instance enforcement causes the test host app to exit immediately if a copy is already running, producing "Early unexpected exit, operation never finished bootstrapping."
+
 Tests call real OS APIs and validate postconditions (ranges, invariants) rather than mocking. Test classes:
 - `MemoryMonitorTests`, `DiskMonitorTests` — stats sanity checks, threshold logic
 - `CPUUsageSamplerTests` — delta math, ring buffer, UInt32 wraparound

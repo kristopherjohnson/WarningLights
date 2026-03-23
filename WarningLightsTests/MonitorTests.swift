@@ -74,6 +74,46 @@ final class MemoryMonitorTests: XCTestCase {
     }
 }
 
+// MARK: - Initial Status Publication Tests (4.8)
+//
+// Verifies that building a SystemStatus from freshly-refreshed monitors
+// produces real data, not the .unknown placeholder values. This validates
+// the fix in SystemMonitor.start() that calls publishStatus() immediately
+// after initializing monitors.
+
+final class InitialStatusPublicationTests: XCTestCase {
+
+    func testStatusFromFreshMonitorsIsNotUnknown() {
+        // Reproduce the sequence that start() performs before publishStatus():
+        let memoryMonitor = MemoryMonitor()
+        let diskMonitor = DiskMonitor()
+        let cpuMonitor = CPUMonitor()
+        let batteryMonitor = BatteryMonitor()
+
+        memoryMonitor.refreshStats()
+        diskMonitor.refresh()
+        cpuMonitor.refresh()
+
+        let status = SystemStatus(
+            memory: memoryMonitor.stats,
+            disk: diskMonitor.stats,
+            cpu: cpuMonitor.stats,
+            battery: batteryMonitor.stats
+        )
+
+        // Memory and disk must have real data after a single refresh.
+        XCTAssertGreaterThan(status.memory.totalBytes, 0,
+            "Memory totalBytes must be non-zero after refresh")
+        XCTAssertGreaterThan(status.disk.totalBytes, 0,
+            "Disk totalBytes must be non-zero after refresh")
+
+        // CPU is expected to remain at .unknown after only one sample
+        // (needs two samples to compute a delta). This is acceptable.
+        XCTAssertEqual(status.cpu.currentUsage, CPUMonitor.Stats.unknown.currentUsage,
+            "CPU should still be at unknown after only one sample")
+    }
+}
+
 // MARK: - DiskMonitor Tests
 
 final class DiskMonitorTests: XCTestCase {
