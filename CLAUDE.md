@@ -65,3 +65,4 @@ Tests call real OS APIs and validate postconditions (ranges, invariants) rather 
 - `SystemStatusWarningTests` — warning flag aggregation
 - `IconSelectionTests` — SF Symbol selection based on warning state
 - `TooltipStringTests` — tooltip text content and battery line inclusion/omission
+- `InitialStatusPublicationTests` — verifies monitors produce real data (not `.unknown`) after first refresh
