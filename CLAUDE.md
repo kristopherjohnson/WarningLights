@@ -40,7 +40,7 @@ WarningLightsApp (@main)
 
 **Data flow**: Monitors collect raw metrics → `SystemMonitor.pollAndPublish()` aggregates into `SystemStatus` → SwiftUI reactivity (`@Observable`) updates the menu bar icon and dropdown menu.
 
-**Icon color**: The menu bar icon uses monochrome/template rendering (standard menu bar color) when all clear, and orange when any warning is active. Controlled by `SystemStatus.iconColor` applied via `.foregroundStyle()` on the `MenuBarExtra` label.
+**Icon color**: The menu bar icon uses monochrome/template rendering (standard menu bar color) when all clear, and opaque orange when any warning is active. Warning state uses `.palette` rendering with orange on all symbol layers so the icon is fully opaque; all-clear state uses `.monochrome` so the system adapts to light/dark/tinted menu bars.
 
 **Tooltip**: Hovering over the menu bar icon shows a tooltip with the current metrics (same text as the disabled menu items). SwiftUI's `.help()` does not work inside `.menu`-style `MenuBarExtra` labels, so `StatusItemTooltip` uses KVC on the private `NSStatusBarWindow` to find the `NSStatusItem` and set `button.toolTip` directly. Updated via `.onChange(of: status.tooltipString)`.
 

@@ -30,9 +30,14 @@ struct WarningLightsApp: App {
             // out against the menu bar. When all clear, use monochrome/template
             // rendering so the system automatically adapts to light/dark
             // backgrounds and tinted menu bars.
-            Image(systemName: monitor.status.iconSymbolName)
-                .symbolRenderingMode(.monochrome)
-                .foregroundStyle(monitor.status.iconColor ?? .primary)
+            if monitor.status.hasWarning {
+                Image(systemName: monitor.status.iconSymbolName)
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(.orange, .orange, .orange)
+            } else {
+                Image(systemName: monitor.status.iconSymbolName)
+                    .symbolRenderingMode(.monochrome)
+            }
         }
         .menuBarExtraStyle(.menu)
     }

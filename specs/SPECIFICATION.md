@@ -36,7 +36,7 @@ Warning Lights is a macOS menu bar application that monitors system health metri
 - **Tooltip**: When the mouse pointer hovers over the menu bar icon, a tooltip displays the current metrics in the same format as the disabled menu items in the menu (one line per metric, battery line omitted if no battery present). Implemented via `StatusItemTooltip`, which uses KVC on the `NSStatusBarWindow` to access the `NSStatusItem.button.toolTip` directly (SwiftUI's `.help()` does not work inside `.menu`-style `MenuBarExtra` labels).
 - **Icon color**:
   - All clear: `.monochrome` rendering mode (template/standard menu bar color; respects system light/dark mode and tinted backgrounds)
-  - Warning active: orange (`.palette` rendering with orange foreground, or `.foregroundColor(.orange)` via SwiftUI); this makes the warning state immediately distinguishable at a glance
+  - Warning active: `.palette` rendering with orange on all symbol layers (`.foregroundStyle(.orange, .orange, .orange)`); this makes the entire icon opaque orange, immediately distinguishable at a glance
 
 ### Menu (on click)
 
