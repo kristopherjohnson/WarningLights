@@ -46,7 +46,7 @@ WarningLightsApp (@main)
 
 **Concurrency model**: All mutable state lives on `@MainActor` in `SystemMonitor`. Timer and notification callbacks use `MainActor.assumeIsolated` to dispatch back. Memory pressure uses a `DispatchSource` on the main queue. No shared mutable state outside `SystemMonitor`.
 
-**Warning thresholds**: Memory at `.warning`/`.critical` pressure (kernel-driven, not percentage), disk > 90% used, CPU > 75% sustained across all 10 rolling samples (10 minutes).
+**Warning thresholds**: Memory at `.critical` pressure only (kernel-driven, not percentage; `.warning` is routine cache eviction), disk > 90% used, CPU > 75% sustained across all 10 rolling samples (10 minutes).
 
 ## Key Patterns
 

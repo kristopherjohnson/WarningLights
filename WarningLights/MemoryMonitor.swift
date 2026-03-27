@@ -13,7 +13,7 @@ final class MemoryMonitor {
         case critical
 
         var isWarning: Bool {
-            self == .warning || self == .critical
+            self == .critical
         }
 
         var displayName: String {

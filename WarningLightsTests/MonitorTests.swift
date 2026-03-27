@@ -37,8 +37,8 @@ final class MemoryMonitorTests: XCTestCase {
         XCTAssertFalse(MemoryMonitor.PressureLevel.normal.isWarning)
     }
 
-    func testPressureLevelWarningIsWarning() {
-        XCTAssertTrue(MemoryMonitor.PressureLevel.warning.isWarning)
+    func testPressureLevelWarningIsNotWarning() {
+        XCTAssertFalse(MemoryMonitor.PressureLevel.warning.isWarning)
     }
 
     func testPressureLevelCriticalIsWarning() {

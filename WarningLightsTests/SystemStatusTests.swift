@@ -51,10 +51,10 @@ final class SystemStatusWarningTests: XCTestCase {
 
     // MARK: hasWarning — memory triggers
 
-    func testHasWarningTrueWhenMemoryWarning() {
+    func testHasWarningFalseWhenMemoryWarning() {
         let status = makeStatus(memoryPressure: .warning)
-        XCTAssertTrue(status.hasWarning,
-            "hasWarning should be true when memory pressure is .warning")
+        XCTAssertFalse(status.hasWarning,
+            "hasWarning should be false when memory pressure is .warning (only .critical triggers)")
     }
 
     func testHasWarningTrueWhenMemoryCritical() {
@@ -150,7 +150,7 @@ final class IconSelectionTests: XCTestCase {
     private func makeStatus(hasWarning: Bool) -> SystemStatus {
         SystemStatus(
             memory: MemoryMonitor.Stats(
-                pressureLevel: hasWarning ? .warning : .normal,
+                pressureLevel: hasWarning ? .critical : .normal,
                 usedBytes: 0,
                 totalBytes: 0
             ),
@@ -180,13 +180,13 @@ final class IconSelectionTests: XCTestCase {
             battery: .unknown
         )
         let warning = SystemStatus(
-            memory: MemoryMonitor.Stats(pressureLevel: .warning, usedBytes: 0, totalBytes: 0),
+            memory: MemoryMonitor.Stats(pressureLevel: .critical, usedBytes: 0, totalBytes: 0),
             disk: DiskMonitor.Stats(usedBytes: 0, totalBytes: 100),
             cpu: CPUMonitor.Stats(currentUsage: 0, isSustainedOverload: false),
             battery: .unknown
         )
         XCTAssertNotEqual(clear.iconSymbolName, warning.iconSymbolName,
-            "Icon symbol must differ between all-clear and warning states")
+            "Icon symbol must differ between all-clear and critical states")
     }
 
     func testIconForDiskWarning() {
